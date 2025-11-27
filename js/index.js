@@ -4,28 +4,34 @@ var weatherInfo = [
     { district: "Khulna", temperature: 30, condition: "Cloudy" }
 ];
 
-// --- PART B: The Function ---
-function checkWeather(){
-    var selectBox  = document.getElementById("select");
+function checkWeather() {
+    var selectBox = document.getElementById("select");
     var userChoice = selectBox.value;
 
     var imageTag = document.getElementById("image");
     var errorTag = document.getElementById("error");
+    var statusTag = document.getElementById("statusText"); // New variable for text
 
-    // Reset display
+    // Reset display (hide everything first)
     imageTag.style.display = "none";
+    statusTag.style.display = "none";
     errorTag.innerHTML = "";
 
-    if(userChoice === ""){
+    if (userChoice === "") {
         errorTag.innerHTML = "Warning: Please select a city!";
     } 
-    else(userChoice === "")
-    {
+    else {
+        // Find the city in the array
         var result = weatherInfo.find(item => item.district === userChoice);
 
-        if(result){
+        if (result) {
+            // 1. Update Image
             imageTag.src = "../img/" + result.condition + ".png"; 
-            imageTag.style.display = "inline-block";
+            imageTag.style.display = "block";
+
+            // 2. Update Status Text (The new requirement)
+            statusTag.innerText = "Weather Status: " + result.condition;
+            statusTag.style.display = "block";
         }
     }
 }
